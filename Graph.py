@@ -6,12 +6,10 @@ import random
 #graph types: directed/undirected, no two same weights, no cycles, neg weights
 class graph:
         
-        def __init__(self, undirected = False, sameWeights = True, cycles = False ):
+        def __init__(self, undirected = False ):
                 #default = directed graph with different weights and no cycles
                 self._adjList = defaultdict(list) #keys = class vertice, values = list( class edge)
                 self._undirected = undirected
-                self._sameWeights = sameWeights
-                self._cycles = cycles
 
         class vertex:
                 def __init__(self, name: int):
@@ -40,7 +38,11 @@ class graph:
                 self._adjList[vertices[0]].append(new_e)
                         
         def genRand(self, seed: int):
-                
+                #directed graph with no neg weights, no same weights
+                        #still need to prevent cycles
+                #undirected graphs = cycles
+
+                ##problem: creating two same edges with different weights
                 total_e = random.randrange((seed-1), ((seed*(seed-1))/2))
                 for e in range(seed):
                         self.addVertex(e)
@@ -48,6 +50,9 @@ class graph:
                 while(total_e > 0):
                         new_edges = random.sample(range(seed), seed)
                         for index, vertex in enumerate(new_edges):
+                                if index == vertex:
+                                        total_e = total_e - 1
+                                        continue
                                 self.addEdge(total_e, [self.getVertex(index),self.getVertex(vertex)])
                                 total_e = total_e - 1
                                 if total_e <= 0:
