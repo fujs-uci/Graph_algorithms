@@ -31,6 +31,9 @@ class graph:
                 def __init__(self, weight: int, vertices: list):
                         self._weight = weight
                         self._vertices = vertices
+
+                def getVertice(self):
+                        return self._vertices
                         
                 def display(self):
                         return [self._weight, [i.display() for i in self._vertices]]
@@ -80,9 +83,5 @@ class graph:
                 #prints out an adjacency list for the graph
                 for v, e in self._adjList.items():
                         print(v.display(), [i.display() for i in e])
-                
-graph = graph()
-graph.genRand(7)
-graph.printAdjList()
 
 
