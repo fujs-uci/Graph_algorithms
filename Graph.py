@@ -62,6 +62,8 @@ class graph:
                 while(total_e > 0):
                         new_edges = random.sample(range(seed), seed)
                         for index, vertex in enumerate(new_edges):
+                                if total_e <= 0:
+                                        break
                                 if index == vertex:
                                         total_e = total_e - 1
                                         continue
@@ -73,8 +75,7 @@ class graph:
                                 self.getVertex(index).addOutgoing(vertex)
                                 
                                 total_e = total_e - 1
-                                if total_e <= 0:
-                                        break
+
                                 
         def getAdjList(self):
                 return self._adjList
