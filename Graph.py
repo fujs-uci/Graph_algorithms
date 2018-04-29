@@ -72,7 +72,10 @@ class graph:
                                 total_e = total_e - 1
                                 if total_e <= 0:
                                         break
-
+                                
+        def getAdjList(self):
+                return self._adjList
+        
         def printAdjList(self):
                 #prints out an adjacency list for the graph
                 for v, e in self._adjList.items():
