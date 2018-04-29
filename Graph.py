@@ -12,37 +12,46 @@ class graph:
                 self._undirected = undirected
 
         class vertex:
+                #vertex class to have ways to check outgoing edges
                 def __init__(self, name: int):
                         self._name = name
+                        self._outgoing = []
 
                 def display(self):
                         return self._name
+
+                def addOutgoing(self, vertex):
+                        self._outgoing.append(vertex)
+
+                def checkOutgoing(self, vertex):
+                        return vertex in self._outgoing
                         
         class edge:
+                #edge class to keep track of weights
                 def __init__(self, weight: int, vertices: list):
                         self._weight = weight
-                        self._vertices = vertices #in a directed graph, [0] will be 'from', [1] will be 'to'
-
+                        self._vertices = vertices
+                        
                 def display(self):
                         return [self._weight, [i.display() for i in self._vertices]]
 
         def getVertex(self, index: int):
+                #returns a vertex to add outgoing edges
                 return list(self._adjList.keys())[index]
 
         def addVertex(self, name: int):
+                #adds a new vertex to the graph
                 new_v = self.vertex(name)
                 self._adjList[new_v]
 
         def addEdge(self, weight, vertices):
+                #adds a new edge to the graph
                 new_e = self.edge(weight, vertices)
                 self._adjList[vertices[0]].append(new_e)
                         
         def genRand(self, seed: int):
-                #directed graph with no neg weights, no same weights
-                        #still need to prevent cycles
-                #undirected graphs = cycles
+                #creates a directed graph with no neg weights, no same weights
 
-                ##problem: creating two same edges with different weights
                 total_e = random.randrange((seed-1), ((seed*(seed-1))/2))
                 for e in range(seed):
                         self.addVertex(e)
@@ -53,15 +62,24 @@ class graph:
                                 if index == vertex:
                                         total_e = total_e - 1
                                         continue
+
+                                if self.getVertex(index).checkOutgoing(vertex):
+                                        total_e = total_e- 1
+                                        continue
                                 self.addEdge(total_e, [self.getVertex(index),self.getVertex(vertex)])
+                                self.getVertex(index).addOutgoing(vertex)
+                                
                                 total_e = total_e - 1
                                 if total_e <= 0:
                                         break
 
         def printAdjList(self):
+                #prints out an adjacency list for the graph
                 for v, e in self._adjList.items():
                         print(v.display(), [i.display() for i in e])
                 
 graph = graph()
 graph.genRand(7)
 graph.printAdjList()
+
+
