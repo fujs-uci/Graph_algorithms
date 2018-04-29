@@ -1,8 +1,9 @@
 from Graph import graph
 
 class reachabilty:
-        #depth first search to find reachability
-        #default vertex start will be zero
+        #Reachability will focus on DFS and BFS
+        # might add more algorithms later
+
         def __init__(self, graph):
                 self._graph = graph
                 self._DFS = None
@@ -13,7 +14,9 @@ class reachabilty:
         def findEdges(self, vertex):
                 return self.getGraph().getAdjList()[self.getGraph().getVertex(vertex.display())]
 
+
         def DFS(self, start):
+                #DFS algorithm
                 reached = []
 
                 def visit( vertex ):
@@ -23,10 +26,16 @@ class reachabilty:
                                         visit( edge.getVertice()[1])
                                 
 
-                visit(start)
-                return [v.display() for v in reached]
-                                              
+                visit(self.getGraph().getVertex(start))
+                
+                self._DFS = [v.display() for v in reached]
 
+        def displayDFS(self, start):
+                #calls DFS and displays the path it took.
+                self.DFS(0)
+                print(self._DFS)
+                                              
+        
                 
         def BFS(self, start):
                 pass
@@ -37,4 +46,4 @@ Graph.genRand(7)
 Graph.printAdjList()
 
 Reach = reachabilty(Graph)
-print(Reach.DFS(Reach.getGraph().getVertex(0)))
+Reach.displayDFS(0)
