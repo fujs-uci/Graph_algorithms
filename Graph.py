@@ -25,6 +25,9 @@ class graph:
 
                 def checkOutgoing(self, vertex):
                         return vertex in self._outgoing
+
+                def getOutgoing(self):
+                        return self._outgoing
                         
         class edge:
                 #edge class to keep track of weights
