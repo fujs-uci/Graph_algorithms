@@ -41,9 +41,6 @@ class graph:
                 def display(self):
                         return [self._weight, [i.display() for i in self._vertices]]
 
-        def setGraph(self, adjList):
-                self._adjList = adjList
-
         def getVertex(self, index: int):
                 #returns a vertex to add outgoing edges
                 return list(self._adjList.keys())[index]
