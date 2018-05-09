@@ -27,6 +27,7 @@ class graph:
                         return vertex in self._outgoing
 
                 def getOutgoing(self):
+                        #returns the vertex name
                         return self._outgoing
                         
         class edge:
@@ -35,8 +36,9 @@ class graph:
                         self._weight = weight
                         self._vertices = vertices
 
-                def getVertice(self):
-                        return self._vertices
+                def getInfo(self):
+                        #[vertex from, vertex to, vertex from]
+                        return self._vertices + [self._weight]
                         
                 def display(self):
                         return [self._weight, [i.display() for i in self._vertices]]
@@ -54,6 +56,18 @@ class graph:
                 #adds a new edge to the graph
                 new_e = self.edge(weight, vertices)
                 self._adjList[vertices[0]].append(new_e)
+
+        
+
+        def undirected(self):
+                #turns current graph into an undirected graph by adding edges
+                # for minimum spanning trees
+                curr_edges = [x for y in self.getAdjList().values() for x in y ]
+                for edges in curr_edges:
+                        info = edges.getInfo()
+                        check = info[0].display() in info[1].getOutgoing()
+                        if not check:
+                                self.addEdge(info[2], [info[1], info[0]])
                         
         def genRand(self, seed: int):
                 #creates a directed graph with no neg weights, no same weights
@@ -89,3 +103,7 @@ class graph:
                         print(v.display(), [i.display() for i in e])
 
 
+g = graph()
+g.genRand(4)
+g.undirected()
+g.printAdjList()
