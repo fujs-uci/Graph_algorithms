@@ -26,8 +26,8 @@ class reachabilty:
                 def visit( vertex ):
                         reached.append(vertex)
                         for edge in self.findEdges(vertex):
-                                if edge.getVertice()[1] not in reached:
-                                        visit( edge.getVertice()[1])
+                                if edge.getInfo()[1] not in reached:
+                                        visit( edge.getInfo()[1])
                                 
                 visit(self.getGraph().getVertex(start))
                 
@@ -85,13 +85,13 @@ class reachabilty:
                         Stack.append(name)
                         
                         for edge in self.findEdges(vertex):
-                                if edge.getVertice()[1].display() not in reached:
-                                        visit( edge.getVertice()[1])
+                                if edge.getInfo()[1].display() not in reached:
+                                        visit( edge.getInfo()[1])
 
-                                        low_link[name] = min( low_link[name], low_link[edge.getVertice()[1].display()] )
+                                        low_link[name] = min( low_link[name], low_link[edge.getInfo()[1].display()] )
 
-                                if  edge.getVertice()[1].display() in Stack:
-                                        low_link[name] = min( low_link[name], index_dict[edge.getVertice()[1].display()] )
+                                if  edge.getInfo()[1].display() in Stack:
+                                        low_link[name] = min( low_link[name], index_dict[edge.getInfo()[1].display()] )
                         
                         if index_dict[name] == low_link[name]:
                                 curr_scc = []
@@ -112,8 +112,8 @@ Graph = graph()
 Graph.genRand(4)
 Graph.printAdjList()
 
-#Reach = reachabilty(Graph)
-#Reach.displayDFS(0)
-#Reach.displayBFS(0)
-#Reach.displaySCC()
+Reach = reachabilty(Graph)
+Reach.displayDFS(0)
+Reach.displayBFS(0)
+Reach.displaySCC()
 
